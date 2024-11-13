@@ -17,3 +17,32 @@ jobs.addEventListener('change', () => {
     }
 });
 
+// created variables to display color choices according to the design theme
+const color = document.querySelector('#color');
+const design = document.querySelector('#design');
+const colorOptions = document.querySelectorAll('option[data-theme]');
+
+color.hidden = true;
+color.parentNode.hidden = true;
+
+design.addEventListener('change', () => {
+
+    for (let i = 0; i < colorOptions.length; i++)
+
+    if (design.value !== colorOptions[i].getAttribute('data-theme')) {
+        color.hidden = false;
+        color.parentNode.hidden = false;
+        colorOptions[i].hidden = true;
+        colorOptions[i].disabled = true; 
+    } else {
+        color.hidden = false;
+        color.parentNode.hidden = false;
+        colorOptions[i].hidden = false;
+        colorOptions[i].disabled = false; 
+    }
+
+    if (color.value !== '') {
+        color.value = 'reselect';
+    }
+});
+
