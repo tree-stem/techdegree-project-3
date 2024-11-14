@@ -48,12 +48,12 @@ design.addEventListener('change', () => {
 
 
 // created an event listener that listens for checkbox changes and dynamically adds activity costs to the total
-const fieldset = document.querySelector('fieldset[id="activities"]');
+const activitiesFieldset = document.querySelector('fieldset[id="activities"]');
 const activities = document.querySelectorAll('input[type="checkbox"]');
 const totalCost = document.getElementById('activities-cost');
 let selectedActivities = [];
 
-fieldset.addEventListener('change', (e) => {
+activitiesFieldset.addEventListener('change', () => {
 
     let total = 0;
     let selectedActivities = [];
@@ -76,5 +76,20 @@ fieldset.addEventListener('change', (e) => {
     totalCost.textContent = `Total: $${total}`;
 });
 
+// Set default option as credit card and hid credit card information boxes for other methods  
+const selectPayment = document.querySelector('#payment');
+const paymentOptions = selectPayment.options;
+const paymentFieldset = document.querySelector('.payment-methods'); 
+const creditCardBoxes = document.querySelector('#credit-card');
 
+paymentOptions[1].selected = true;
+
+paymentFieldset.addEventListener('change', () => {
+
+    if ( paymentOptions[2].selected || paymentOptions[3].selected ) {
+        creditCardBoxes.hidden = true;
+    } else {
+        creditCardBoxes.hidden = false;
+    }
+});
 
