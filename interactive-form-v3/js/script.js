@@ -93,3 +93,104 @@ paymentFieldset.addEventListener('change', () => {
     }
 });
 
+//
+
+const form = document.querySelector('form');
+const nameInput = document.querySelector('#name');
+const emailInput = document.querySelector('#email');
+const activityHint = document.querySelector('#activities-hint');
+const creditCardNumberInput = document.querySelector('#cc-num');
+const zipInput = document.querySelector('#zip');
+const cvvInput = document.querySelector('#cvv');
+
+const isValidEmail = () => /^[^@]+@[^@.]+\.[a-z]+$/i.test(emailInput.value);
+const isValidCardNumber = () => /^\d{13,16}$/.test(creditCardNumberInput.value);
+const isValidZip = () => /^\d{5}$/.test(zipInput.value);
+const isValidCVV = () => /^\d{3}$/.test(cvvInput.value);
+
+/* already declared variables:
+
+const activitiesFieldset = document.querySelector('fieldset[id="activities"]');
+const activities = document.querySelectorAll('input[type="checkbox"]');
+
+*/
+
+
+
+
+form.addEventListener('submit', (e) => {
+    
+    if (nameInput.value === '') {
+        e.preventDefault();
+        nameInput.closest('label').className = 'not-valid';
+        nameInput.nextElementSibling.style.display = 'block'; 
+    } else {
+        nameInput.closest('label').className = 'valid';
+        nameInput.nextElementSibling.style.display = 'none'; 
+    };
+
+    if (isValidEmail()) {
+        emailInput.closest('label').className = 'valid';
+        emailInput.nextElementSibling.style.display = 'none';      
+    } else {
+        e.preventDefault();
+        emailInput.closest('label').className = 'not-valid';
+        emailInput.nextElementSibling.style.display = 'block';
+    };
+
+    let validActivities = [];
+
+    for (let i = 0; i < activities.length; i++) {
+
+        activities[i].closest('label').className = '';
+        
+        if (activities[i].checked) {
+            validActivities.push(activities[i]);  
+        };
+    };
+
+    if (validActivities.length === 0) {
+        e.preventDefault();
+        activityHint.style.display = 'block';
+        
+        for (let i = 0; i < activities.length; i++) {
+
+            activities[i].closest('label').className = 'not-valid';
+        };
+    };
+
+    validActivities.forEach(showValidity);
+
+    function showValidity(activity) {
+        activity.closest('label').className = 'valid';
+        activityHint.style.display = 'none'; 
+    };
+
+    if (isValidCardNumber()) {
+        creditCardNumberInput.closest('label').className = 'valid';
+        creditCardNumberInput.nextElementSibling.style.display = 'none';
+    } else {
+        e.preventDefault()
+        creditCardNumberInput.closest('label').className = 'not-valid';
+        creditCardNumberInput.nextElementSibling.style.display = 'block';
+    };
+
+    if (isValidZip()) {
+        zipInput.closest('label').className = 'valid';
+        zipInput.nextElementSibling.style.display = 'none';
+    } else {
+        e.preventDefault()
+        zipInput.closest('label').className = 'not-valid';
+        zipInput.nextElementSibling.style.display = 'block';
+    };
+
+    if (isValidCVV()) {
+        cvvInput.closest('label').className = 'valid';
+        cvvInput.nextElementSibling.style.display = 'none';
+    } else {
+        e.preventDefault()
+        cvvInput.closest('label').className = 'not-valid';
+        cvvInput.nextElementSibling.style.display = 'block';
+    };
+});
+
