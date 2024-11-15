@@ -93,7 +93,7 @@ paymentFieldset.addEventListener('change', () => {
     }
 });
 
-//
+// created variables to validate form submisisons
 
 const form = document.querySelector('form');
 const nameInput = document.querySelector('#name');
@@ -194,3 +194,16 @@ form.addEventListener('submit', (e) => {
     };
 });
 
+// Added focus to each checkbox in the activty section for more accessibility
+
+activities.forEach(checkbox => {
+    checkbox.addEventListener('focus', () => {
+        checkbox.parentElement.classList.add('focus');
+    });
+
+    checkbox.addEventListener('blur', () => {
+        checkbox.parentElement.classList.remove('focus');
+    });
+});
+
+// Thanks for reviewing :)
