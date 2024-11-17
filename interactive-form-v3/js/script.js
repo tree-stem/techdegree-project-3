@@ -17,6 +17,7 @@ jobs.addEventListener('change', () => {
     }
 });
 
+
 // created variables to display color choices according to the design theme
 const color = document.querySelector('#color');
 const design = document.querySelector('#design');
@@ -76,25 +77,39 @@ activitiesFieldset.addEventListener('change', () => {
     totalCost.textContent = `Total: $${total}`;
 });
 
+
 // Set default option as credit card and hid credit card information boxes for other methods  
 const selectPayment = document.querySelector('#payment');
 const paymentOptions = selectPayment.options;
 const paymentFieldset = document.querySelector('.payment-methods'); 
 const creditCardBoxes = document.querySelector('#credit-card');
+const paypal = document.querySelector('#paypal');
+const bitcoin = document.querySelector('#bitcoin');
 
 paymentOptions[1].selected = true;
+paypal.hidden = true;
+bitcoin.hidden = true;
 
 paymentFieldset.addEventListener('change', () => {
 
-    if ( paymentOptions[2].selected || paymentOptions[3].selected ) {
+    if (paymentOptions[2].selected) {
         creditCardBoxes.hidden = true;
-    } else {
+        paypal.hidden = false;
+        bitcoin.hidden = true;
+
+    } else if (paymentOptions[3].selected) {
+        creditCardBoxes.hidden = true;
+        paypal.hidden = true;
+        bitcoin.hidden = false;
+    }else {
         creditCardBoxes.hidden = false;
-    }
+        paypal.hidden = true;
+        bitcoin.hidden = true;
+    };
 });
 
-// created variables to validate form submisisons
 
+// created variables to validate form submisisons
 const form = document.querySelector('form');
 const nameInput = document.querySelector('#name');
 const emailInput = document.querySelector('#email');
@@ -108,14 +123,13 @@ const isValidCardNumber = () => /^\d{13,16}$/.test(creditCardNumberInput.value);
 const isValidZip = () => /^\d{5}$/.test(zipInput.value);
 const isValidCVV = () => /^\d{3}$/.test(cvvInput.value);
 
+
 /* already declared variables:
 
 const activitiesFieldset = document.querySelector('fieldset[id="activities"]');
 const activities = document.querySelectorAll('input[type="checkbox"]');
 
 */
-
-
 
 
 form.addEventListener('submit', (e) => {
@@ -166,36 +180,37 @@ form.addEventListener('submit', (e) => {
         activityHint.style.display = 'none'; 
     };
 
-    if (isValidCardNumber()) {
-        creditCardNumberInput.closest('label').className = 'valid';
-        creditCardNumberInput.nextElementSibling.style.display = 'none';
-    } else {
-        e.preventDefault()
-        creditCardNumberInput.closest('label').className = 'not-valid';
-        creditCardNumberInput.nextElementSibling.style.display = 'block';
-    };
-
-    if (isValidZip()) {
-        zipInput.closest('label').className = 'valid';
-        zipInput.nextElementSibling.style.display = 'none';
-    } else {
-        e.preventDefault()
-        zipInput.closest('label').className = 'not-valid';
-        zipInput.nextElementSibling.style.display = 'block';
-    };
-
-    if (isValidCVV()) {
-        cvvInput.closest('label').className = 'valid';
-        cvvInput.nextElementSibling.style.display = 'none';
-    } else {
-        e.preventDefault()
-        cvvInput.closest('label').className = 'not-valid';
-        cvvInput.nextElementSibling.style.display = 'block';
-    };
+    if (paymentOptions[1].selected) {
+        if (isValidCardNumber()) {
+            creditCardNumberInput.closest('label').className = 'valid';
+            creditCardNumberInput.nextElementSibling.style.display = 'none';
+        } else {
+            e.preventDefault()
+            creditCardNumberInput.closest('label').className = 'not-valid';
+            creditCardNumberInput.nextElementSibling.style.display = 'block';
+        };
+    
+        if (isValidZip()) {
+            zipInput.closest('label').className = 'valid';
+            zipInput.nextElementSibling.style.display = 'none';
+        } else {
+            e.preventDefault()
+            zipInput.closest('label').className = 'not-valid';
+            zipInput.nextElementSibling.style.display = 'block';
+        };
+    
+        if (isValidCVV()) {
+            cvvInput.closest('label').className = 'valid';
+            cvvInput.nextElementSibling.style.display = 'none';
+        } else {
+            e.preventDefault()
+            cvvInput.closest('label').className = 'not-valid';
+            cvvInput.nextElementSibling.style.display = 'block';
+        }; 
+    };    
 });
 
 // Added focus to each checkbox in the activty section for more accessibility
-
 activities.forEach(checkbox => {
     checkbox.addEventListener('focus', () => {
         checkbox.parentElement.classList.add('focus');
