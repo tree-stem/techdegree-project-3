@@ -159,7 +159,7 @@ select {
   margin-top: 5px;
   margin-bottom: 5px;
 	padding-right: calc(4% + 0.95em);
-  background: url(../caret.png) calc(100% - 7px) 50% no-repeat rgb(255, 253, 249);
+  background: url(./caret.png) calc(100% - 7px) 50% no-repeat rgb(255, 253, 249);
 	background-size: 12px auto;
 	border: 1px solid rgba(36, 28, 21, 0.2);
 	border-radius: 2px;
@@ -169,7 +169,7 @@ select {
 }
 
 select:focus {
-  background: url(../caret.png) calc(100% - 7px) 50% no-repeat rgba(255, 255, 255, 1) !important;
+  background: url(./caret.png) calc(100% - 7px) 50% no-repeat rgba(255, 255, 255, 1) !important;
   background-size: 12px auto !important;
   border-color:  rgb(9, 73, 250);
 }
@@ -252,7 +252,7 @@ button:hover {
   right: 0px;
   width: 25px;
   height: 25px;
-  background-image: url('../valid.svg');
+  background-image: url('./valid.svg');
   background-size: 25px;
   transition: all 0.3s ease-out;
 }
@@ -264,7 +264,7 @@ button:hover {
   right: 0px;
   width: 25px;
   height: 25px;
-  background-image: url('../not-valid.svg');
+  background-image: url('./not-valid.svg');
   background-size: 25px;
   transition: all 0.3s ease-out;
 }
